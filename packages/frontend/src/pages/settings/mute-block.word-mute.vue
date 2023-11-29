@@ -5,13 +5,26 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <template>
 <div class="_gaps_m">
+	<div v-for="category in $i!.mutedWords.categories">
+		<div :class="$style.itemMain">
+			<!-- :to="userPage(item.mutee)" -->
+			<div>{{ category.name }}</div>
+			<button class="_button" :class="$style.editToggle" @click="toggleMuteItem(item)"><i :class="$style.chevron" class="ti ti-edit"></i></button>
+			<button class="_button" :class="$style.remove" @click="remove(categories)"><i class="ti ti-x"></i></button>
+		</div>
+	</div>
+	<MkButton primary inline @click="saveMutedWords()"><i class="ti ti-add"></i> {{ i18n.ts.add }}</MkButton>
+	<!-- <div>
+
+	</div>
+	<MkButton primary inline :disabled="!changed" @click="save()"><i class="ti ti-device-floppy"></i> {{ i18n.ts.save }}</MkButton>
 	<div>
 		<MkTextarea v-model="mutedWords">
 			<span>{{ i18n.ts._wordMute.muteWords }}</span>
 			<template #caption>{{ i18n.ts._wordMute.muteWordsDescription }}<br>{{ i18n.ts._wordMute.muteWordsDescription2 }}</template>
 		</MkTextarea>
 	</div>
-	<MkButton primary inline :disabled="!changed" @click="save()"><i class="ti ti-device-floppy"></i> {{ i18n.ts.save }}</MkButton>
+	<MkButton primary inline :disabled="!changed" @click="save()"><i class="ti ti-device-floppy"></i> {{ i18n.ts.save }}</MkButton> -->
 </div>
 </template>
 
@@ -38,7 +51,7 @@ const render = (mutedWords) => mutedWords.map(x => {
 	}
 }).join('\n');
 
-const mutedWords = ref(render(props.muted));
+const mutedWords = ref(props.muted);
 const changed = ref(false);
 
 watch(mutedWords, () => {
@@ -90,3 +103,8 @@ async function save() {
 	changed.value = false;
 }
 </script>
+
+<style lang="scss" module>
+
+
+</style>

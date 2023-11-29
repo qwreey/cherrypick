@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<template #icon><i class="ti ti-message-off"></i></template>
 		<template #label>{{ i18n.ts.wordMute }}</template>
 
-		<XWordMute :muted="$i!.mutedWords" @save="saveMutedWords"/>
+		<XWordMute :muted="$i!.mutedWords"/ @save="saveMutedWords">
 	</MkFolder>
 
 	<MkFolder>

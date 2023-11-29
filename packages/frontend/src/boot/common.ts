@@ -25,6 +25,8 @@ import { deckStore } from '@/ui/deck/deck-store.js';
 import { miLocalStorage } from '@/local-storage.js';
 import { fetchCustomEmojis } from '@/custom-emojis.js';
 import { mainRouter } from '@/router.js';
+import { migrateMutedWords } from '@/scripts/migrate-muted-words.js';
+import * as os from '@/os.js';
 
 export async function common(createVue: () => App<Element>) {
 	console.info(`CherryPick v${version}`);
@@ -194,6 +196,13 @@ export async function common(createVue: () => App<Element>) {
 			defaultStore.set('darkMode', mql.matches);
 		}
 	});
+	//#endregion
+
+	//#region Migrate word mute
+	const newMutedWords = migrateMutedWords($i!.mutedWords);
+	if (newMutedWords) {
+		await os.api('i/update', { mutedWords: newMutedWords });
+	}
 	//#endregion
 
 	fetchInstanceMetaPromise.then(() => {
